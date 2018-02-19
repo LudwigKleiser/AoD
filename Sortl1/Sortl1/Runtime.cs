@@ -11,23 +11,36 @@ namespace Sortl1
 
         public void Start()
         {
-            var numbers = new List<int>()
+            //var numbers = new List<int>()
+            //{
+            //    -123,
+            //    -1523,
+            //     4554,
+            //    -10000,
+            //     10000,
+            //     949,
+            //     4306,
+            //    -3423,
+            //     3554,
+            //     43
+            //};
+
+
+
+            //BubbleSort(numbers);
+            while (true)
             {
-                -123,
-                -1523,
-                 4554,
-                -10000,
-                 10000,
-                 949,
-                 4306,
-                -3423,
-                 3554,
-                 43
-            };
+                
+                Console.WriteLine("Skriv in ett tal");
+                var a = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Skriv in ett till tal");
+                var b = Convert.ToInt32(Console.ReadLine());
+                var result = EuklidesTest(a, b);
+                Console.WriteLine(result);
+                Console.ReadKey();
+            }
+            
 
-
-
-            BubbleSort(numbers);
 
 
 
@@ -58,6 +71,19 @@ namespace Sortl1
                 
             }
             Console.ReadKey();
+        }
+
+        private int EuklidesTest(int a, int b)
+        {
+            if (a == 0)
+                return b;
+            if (b == 0)
+                return a;
+
+            if (a > b)
+                return EuklidesTest(a % b, b);
+            else
+                return EuklidesTest(a, b % a);
         }
     }
 }
