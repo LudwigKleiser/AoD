@@ -11,79 +11,121 @@ namespace Sortl1
 
         public void Start()
         {
-            //var numbers = new List<int>()
-            //{
-            //    -123,
-            //    -1523,
-            //     4554,
-            //    -10000,
-            //     10000,
-            //     949,
-            //     4306,
-            //    -3423,
-            //     3554,
-            //     43
-            //};
-
-
-
-            //BubbleSort(numbers);
-            while (true)
+            var numbers = new List<int>()
             {
-                
-                Console.WriteLine("Skriv in ett tal");
-                var a = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Skriv in ett till tal");
-                var b = Convert.ToInt32(Console.ReadLine());
-                var result = EuklidesTest(a, b);
-                Console.WriteLine(result);
-                Console.ReadKey();
-            }
+                -123,
+                -1523,
+                 4554,
+                -10000,
+                 10000,
+                 949,
+                 4306,
+                -3423,
+                 3554,
+                 43
+            };
             
 
+            //BubbleSort(numbers);
+            //MergeSort(numbers);
+            QuickSort(numbers);
+            //while (true)
+            //{
+
+            //    Console.WriteLine("Skriv in ett tal");
+            //    var a = int.Parse(Console.ReadLine());
+            //    Console.WriteLine("Skriv in ett till tal");
+            //    var b = int.Parse(Console.ReadLine());
+            //    while(b > 0)
+            //    {
+            //        int c = a % b;
+            //        a = b;
+            //        b = c;
+            //    }
+            //    Console.WriteLine("Den största gemensama nämnaren faktor =" + a);
 
 
-
+            //    //var result = EuklidesTest(a, b);
+            //Console.WriteLine(result);
 
         }
 
-        private void BubbleSort(List<int> numbers)
-        {
-            for (int i = 0; i < numbers.Count; i++)
-            {
-                for (int j = 0; j < numbers.Count - 1; j++)
-                {
-                    if (numbers[j + 1] < numbers[j])
-                    {
-                        int tempNumber = numbers[j];
-                        numbers[j] = numbers[j + 1];
-                        numbers[j + 1] = tempNumber;
 
-                    }
-                    
+
+
+
+
+    //}
+
+    private void BubbleSort(List<int> numbers)
+    {
+            var listToBeSorted = numbers;
+        for (int i = 0; i < listToBeSorted.Count; i++)
+        {
+            for (int j = 0; j < listToBeSorted.Count - 1; j++)
+            {
+                if (listToBeSorted[j + 1] < listToBeSorted[j])
+                {
+                    int tempNumber = listToBeSorted[j];
+                        listToBeSorted[j] = numbers[j + 1];
+                        listToBeSorted[j + 1] = tempNumber;
+
                 }
 
             }
 
-            foreach (var number in numbers)
+        }
+
+        foreach (var number in listToBeSorted)
+        {
+            Console.WriteLine($"Bubble: {number}");
+
+        }
+        Console.ReadKey();
+    }
+        private void MergeSort(List<int> numbers)
+        {
+
+        }
+
+        private void QuickSort(List<int> numbers)
+        {
+            var listToBeSorted = numbers;
+
+            int pivot = listToBeSorted.Count()-1;
+
+            for (int i = 0; i < pivot; i++)
             {
-                Console.WriteLine(number);
+                if(listToBeSorted[i] > listToBeSorted[pivot])
+                {
+                    listToBeSorted.Add(listToBeSorted[i]);
+                    listToBeSorted.RemoveAt(i);
+                    pivot--;
+                    i--;
+                }
                 
             }
+            foreach (var number in listToBeSorted)
+            {
+                Console.WriteLine($"Quicksort: {number}");
+                
+            }
+            Console.WriteLine("split");
             Console.ReadKey();
+            
+            QuickSort(listToBeSorted);
         }
+    private int EuklidesTest(int a, int b)
+    {
+        if (a == 0)
+            return b;
+        if (b == 0)
+            return a;
 
-        private int EuklidesTest(int a, int b)
-        {
-            if (a == 0)
-                return b;
-            if (b == 0)
-                return a;
-
-            if (a > b)
-                return EuklidesTest(a % b, b);
-            else
-                return EuklidesTest(a, b % a);
-        }
+        if (a > b)
+            return EuklidesTest(a % b, b);
+        else
+            return EuklidesTest(a, b % a);
     }
+}
 }
