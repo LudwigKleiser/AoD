@@ -11,16 +11,55 @@ namespace Sortl1
 
         public void Start()
         {
-            var numbers = new List<int>()
-            {
-                -123,-1523,4554,-10000,10000,3456,-4306,-3423,3554,43
-            };
-            List<char> chars = new List<char> {
-                'g', 'a', 'b', 'l', 'q', 't', 'w', 'c', 'u', 'n'
-            };
 
+           // Filepath declaration 
+            var numbersFilePath = @"C:\Users\ludde\OneDrive\Dokument\AoD\Sortl1\Sortl1\TextFiles\Numbers.txt";
+            var charactersFilePath = @"C:\Users\ludde\OneDrive\Dokument\AoD\Sortl1\Sortl1\TextFiles\Characters.txt";
+            //Get data from files
+            var numbersData = System.IO.File.ReadAllLines(numbersFilePath);
+            var characterData = System.IO.File.ReadAllLines(charactersFilePath);
+
+            //Lists to be filled from files
+            var numbers = new List<int>();
+            var chars = new List<char>();
+            
+            //Adding data to the lists
+            foreach (var number in numbersData)
+            {
+                string[] splitString = number.Split(',');
+                numbers.Add(int.Parse(splitString[0]));
+
+            }
+            foreach (var character in characterData)
+            {
+                string[] splitString = character.Split(',');
+                chars.Add(char.Parse(splitString[0]));
+            }
+            
+            //var numbers = new List<int>()
+            //{
+            //    -123,-1523,4554,-10000,10000,3456,-4306,-3423,3554,43
+            //};
+            //List<char> chars = new List<char> {
+            //    'g', 'a', 'b', 'l', 'q', 't', 'w', 'c', 'u', 'n'
+            //};
+
+            // Lists to be used for sorting
             var intList = new List<int>();
             var charList = new List<char>();
+
+            //Printing out the lists before sorting.
+
+            foreach (var number in numbers)
+            {
+                Console.WriteLine($"Before sorting: {number}");
+            }
+            foreach (var character in chars)
+            {
+                Console.WriteLine($"Before sorting: {character}");
+            }
+
+            //Calling the Quicksort function while declaring what datatype is to be used.
             charList = SortingMethodsClass<char>.QuickSort(chars);
             intList = SortingMethodsClass<int>.QuickSort(numbers);
             foreach (var item in intList)
@@ -31,6 +70,7 @@ namespace Sortl1
             {
                 Console.WriteLine($"Quick: {item}");
             }
+            //Calling the Bubblesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.BubbleSort(numbers);
             charList = SortingMethodsClass<char>.BubbleSort(chars);
             foreach (var item in intList)
@@ -41,6 +81,7 @@ namespace Sortl1
             {
                 Console.WriteLine($"Bubble: {item}");
             }
+            //Calling the Mergesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.MergeSort(numbers);
             charList = SortingMethodsClass<char>.MergeSort(chars);
             foreach (var item in intList)
@@ -54,6 +95,8 @@ namespace Sortl1
             //BubbleSort(numbers);
             //MergeSort(numbers);
             //QuickSort(numbers);
+          
+            
 
         }
 
@@ -121,11 +164,13 @@ namespace Sortl1
     {
         static internal List<T> BubbleSort(List<T> list)
         {
-            List<T> newList = list.GetRange(0, list.Count);
+           
             for (int i = list.Count - 2; i >= 0; i--)
             {
+                //Declaring the current position and the value to its right.
                 int currentPosition = i;
                 int compare = currentPosition + 1;
+                //Loop that runs until CompareElements function returns false
                 while (CompareElements(list[currentPosition], list[compare]))
                 {
                     list = SwitchElements(list, currentPosition, compare);
@@ -152,11 +197,13 @@ namespace Sortl1
         }
         internal static List<T> MergeSort(List<T> numbers)
         {
+            //Calls the Divide function
             return Divide(numbers.GetRange(0, numbers.Count));
         }
 
         private static List<T> Divide(List<T> list)
         {
+            //Splits the list up in two.
             List<T> newList1 = list.GetRange(0, list.Count / 2 + list.Count % 2);
             List<T> newList2 = list.GetRange(list.Count / 2 + list.Count % 2, list.Count / 2);
 
@@ -169,6 +216,7 @@ namespace Sortl1
 
         private static List<T> SortAndMerge(List<T> list1, List<T> list2)
         {
+
             List<T> listCombined = new List<T>();
 
             int list1ToCompare = 0;
@@ -207,10 +255,13 @@ namespace Sortl1
 
         internal static bool CompareElements(T element1, T element2)
         {
+            //Checking what datatype is being 
             if (typeof(T) == typeof(int))
             {
+                //If the type is int we parse both elements to int.
                 int a = int.Parse(element1.ToString());
                 int b = int.Parse(element2.ToString());
+                //If the value of a is greater than b we return true otherwise we return false.
                 if (a > b) return true;
                 else return false;
             }
@@ -244,6 +295,7 @@ namespace Sortl1
         }
         internal static List<T> SwitchElements(List<T> listToSort, int current, int compare)
         {
+            
             T temp = listToSort[current];
             listToSort[current] = listToSort[compare];
             listToSort[compare] = temp;
