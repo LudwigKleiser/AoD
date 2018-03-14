@@ -36,24 +36,18 @@ namespace Sortl1
                 chars.Add(char.Parse(splitString[0]));
             }
             
-            //var numbers = new List<int>()
-            //{
-            //    -123,-1523,4554,-10000,10000,3456,-4306,-3423,3554,43
-            //};
-            //List<char> chars = new List<char> {
-            //    'g', 'a', 'b', 'l', 'q', 't', 'w', 'c', 'u', 'n'
-            //};
 
             // Lists to be used for sorting
             var intList = new List<int>();
             var charList = new List<char>();
 
             //Printing out the lists before sorting.
-
+            Console.WriteLine("Numbers");
             foreach (var number in numbers)
             {
                 Console.WriteLine($"Before sorting: {number}");
             }
+            Console.WriteLine("Characters");
             foreach (var character in chars)
             {
                 Console.WriteLine($"Before sorting: {character}");
@@ -62,6 +56,7 @@ namespace Sortl1
             //Calling the Quicksort function while declaring what datatype is to be used.
             charList = SortingMethodsClass<char>.QuickSort(chars);
             intList = SortingMethodsClass<int>.QuickSort(numbers);
+            Console.WriteLine("Quick sorting");
             foreach (var item in intList)
             {
                 Console.WriteLine($"Quick: {item}");
@@ -73,6 +68,7 @@ namespace Sortl1
             //Calling the Bubblesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.BubbleSort(numbers);
             charList = SortingMethodsClass<char>.BubbleSort(chars);
+            Console.WriteLine("Bubble sorting");
             foreach (var item in intList)
             {
                 Console.WriteLine($"Bubble: {item}");
@@ -84,6 +80,7 @@ namespace Sortl1
             //Calling the Mergesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.MergeSort(numbers);
             charList = SortingMethodsClass<char>.MergeSort(chars);
+            Console.WriteLine("Merge sorting");
             foreach (var item in intList)
             {
                 Console.WriteLine($"Merge: {item}");
@@ -92,79 +89,17 @@ namespace Sortl1
             {
                 Console.WriteLine($"Merge: {item}");
             }
-            //BubbleSort(numbers);
-            //MergeSort(numbers);
-            //QuickSort(numbers);
           
-            
 
         }
 
-        //private void BubbleSort(List<int> numbers)
-        //{
-        //    var listToBeSorted = numbers;
-        //    for (int i = 0; i < listToBeSorted.Count; i++)
-        //    {
-        //        for (int j = 0; j < listToBeSorted.Count - 1; j++)
-        //        {
-        //            if (listToBeSorted[j + 1] < listToBeSorted[j])
-        //            {
-        //                int tempNumber = listToBeSorted[j];
-        //                listToBeSorted[j] = listToBeSorted[j + 1];
-        //                listToBeSorted[j + 1] = tempNumber;
-
-        //            }
-
-        //        }
-
-        //    }
-
-        //    foreach (var number in listToBeSorted)
-        //    {
-        //        Console.WriteLine($"Bubble: {number}");
-
-        //    }
-        //    Console.ReadKey();
-        //}
-        //private void MergeSort(List<int> numbers)
-        //{
-
-        //}
-
-        //private void QuickSort(List<int> numbers)
-        //{
-        //    var listToBeSorted = numbers;
-
-        //    int pivot = listToBeSorted.Count() - 1;
-
-        //    for (int i = 0; i < pivot; i++)
-        //    {
-        //        if (listToBeSorted[i] > listToBeSorted[pivot])
-        //        {
-        //            listToBeSorted.Add(listToBeSorted[i]);
-        //            listToBeSorted.RemoveAt(i);
-        //            pivot--;
-        //            i--;
-        //        }
-
-        //    }
-        //    foreach (var number in listToBeSorted)
-        //    {
-        //        Console.WriteLine($"Quicksort: {number}");
-
-        //    }
-        //    Console.WriteLine("split");
-        //    Console.ReadKey();
-
-        //    //QuickSort(listToBeSorted);
-        //}
 
     }
     internal class SortingMethodsClass<T>
     {
         static internal List<T> BubbleSort(List<T> list)
         {
-           
+
             for (int i = list.Count - 2; i >= 0; i--)
             {
                 //Declaring the current position and the value to its right.
@@ -177,23 +112,55 @@ namespace Sortl1
 
                     if (currentPosition < list.Count - 2)
                     {
+
                         currentPosition = compare;
                         compare++;
                     }
                 }
             }
             return list;
+
         }
 
-        internal static List<T> QuickSort(List<T> list)
+            static internal List<T> QuickSort(List<T> list)
         {
+            //Copying list
             List<T> listToSort = list.GetRange(0, list.Count);
 
+            //If the list count is <2 return it as it is.
             if (listToSort.Count < 2) return listToSort;
 
+            //              List      Start  Pivot                  End
             SortAroundPivot(listToSort, 0, listToSort.Count / 2, listToSort.Count - 1);
 
-            return listToSort;
+  
+            return list;
+
+            
+
+        }
+        private static void SortAroundPivot(List<T> listToSort, int start, int pivot, int end)
+        {
+
+            if (start >= end) return;
+            int wall = start;
+            //Switch start and end
+            SwitchElements(listToSort, start, end);
+
+            for (int i = wall; i <= end; i++)
+            {
+                if (!CompareElements(listToSort[i], listToSort[end]))
+                {
+                    SwitchElements(listToSort, i, wall);
+                    wall++;
+                }
+
+
+            }
+
+            SortAroundPivot(listToSort, start, (start + wall - 2) / 2, wall - 2);
+            SortAroundPivot(listToSort, wall, (wall + end) / 2, end);
+
         }
         internal static List<T> MergeSort(List<T> numbers)
         {
@@ -274,25 +241,7 @@ namespace Sortl1
             }
             throw new Exception("invalid input! Must be ints or chars!");
         }
-        private static void SortAroundPivot(List<T> listToSort, int start, int pivot, int end)
-        {
-            if (start >= end) return;
-            int wall = start;
-            SwitchElements(listToSort, pivot, end);
-
-            for (int i = wall; i <= end; i++)
-            {
-                if (!CompareElements(listToSort[i], listToSort[end]))
-                {
-                    SwitchElements(listToSort, i, wall);
-                    wall++;
-                }
-            }
-
-            SortAroundPivot(listToSort, start, (start + wall - 2) / 2, wall - 2);
-            SortAroundPivot(listToSort, wall, (wall + end) / 2, end);
-
-        }
+        
         internal static List<T> SwitchElements(List<T> listToSort, int current, int compare)
         {
             
