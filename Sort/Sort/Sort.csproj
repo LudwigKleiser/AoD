@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA5F701B-870C-48C8-B9F0-7224DEA2713A}</ProjectGuid>
+    <ProjectGuid>{ABE66617-D803-44B8-BE28-A6E224F65BAB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Sortl1</RootNamespace>
-    <AssemblyName>Sortl1</AssemblyName>
+    <RootNamespace>Sort</RootNamespace>
+    <AssemblyName>Sort</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,14 +45,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runtime.cs" />
+    <Compile Include="Sorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TextFiles\Characters.txt" />
     <Content Include="TextFiles\Numbers.txt" />
-    <Content Include="TextFiles\Text.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

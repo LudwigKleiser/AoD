@@ -15,6 +15,7 @@ namespace Sortl1
            // Filepath declaration 
             var numbersFilePath = @"C:\Users\ludde\OneDrive\Dokument\AoD\Sortl1\Sortl1\TextFiles\Numbers.txt";
             var charactersFilePath = @"C:\Users\ludde\OneDrive\Dokument\AoD\Sortl1\Sortl1\TextFiles\Characters.txt";
+            var textFilePath = @"C:\Users\ludde\OneDrive\Dokument\AoD\Sortl1\Sortl1\TextFiles\Text.txt";
             //Get data from files
             var numbersData = System.IO.File.ReadAllLines(numbersFilePath);
             var characterData = System.IO.File.ReadAllLines(charactersFilePath);
@@ -59,11 +60,13 @@ namespace Sortl1
             Console.WriteLine("Quick sorting");
             foreach (var item in intList)
             {
-                Console.WriteLine($"Quick: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Quick:" + item + "\n");
+              
+                
             }
             foreach (var item in charList)
             {
-                Console.WriteLine($"Quick: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Quick:" + item + "\n");
             }
             //Calling the Bubblesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.BubbleSort(numbers);
@@ -71,11 +74,11 @@ namespace Sortl1
             Console.WriteLine("Bubble sorting");
             foreach (var item in intList)
             {
-                Console.WriteLine($"Bubble: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Bubble:" + item + "\n");
             }
             foreach (var item in charList)
             {
-                Console.WriteLine($"Bubble: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Bubble:" + item + "\n");
             }
             //Calling the Mergesort function while declaring what datatype is to be used.
             intList = SortingMethodsClass<int>.MergeSort(numbers);
@@ -83,11 +86,11 @@ namespace Sortl1
             Console.WriteLine("Merge sorting");
             foreach (var item in intList)
             {
-                Console.WriteLine($"Merge: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Merge:" + item + "\n");
             }
             foreach (var item in charList)
             {
-                Console.WriteLine($"Merge: {item}");
+                System.IO.File.AppendAllText(textFilePath, "Merge:" + item + "\n");
             }
           
 
@@ -124,19 +127,17 @@ namespace Sortl1
 
             static internal List<T> QuickSort(List<T> list)
         {
+           
             //Copying list
             List<T> listToSort = list.GetRange(0, list.Count);
-
-            //If the list count is <2 return it as it is.
+            //If the list count is <2 return it as it is
             if (listToSort.Count < 2) return listToSort;
-
-            //              List      Start  Pivot                  End
+            ////              List      Start  Pivot                  End
             SortAroundPivot(listToSort, 0, listToSort.Count / 2, listToSort.Count - 1);
 
-  
-            return list;
+            return listToSort;
 
-            
+
 
         }
         private static void SortAroundPivot(List<T> listToSort, int start, int pivot, int end)

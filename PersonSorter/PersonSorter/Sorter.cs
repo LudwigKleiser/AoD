@@ -8,6 +8,19 @@ namespace PersonSorter
 {
     class Sorter
     {
+        internal List<Person> SortBySocialSecurityNumber(List<Person> people)
+        {
+            return people.OrderBy(o => o.SocialSecurityNumber).ToList();
+        }
 
+        internal List<Person> SortByLastName(List<Person> people)
+        {
+            return people.OrderBy(o => o.LastName).ToList();
+        }
+
+        internal List<Person> SortByHasPayed(List<Person> people)
+        {
+            return people.Where(o => o.HasPayed == false).ToList();
+        }
     }
 }
