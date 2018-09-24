@@ -13,6 +13,7 @@ namespace Enumerator
         public int Price { get; set; }
 
         public bool InStock { get; set; }
+        public int Hello { get; set; }
 
         public void Print()
         {
